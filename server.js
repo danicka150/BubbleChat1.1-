@@ -107,10 +107,18 @@ io.on("connection", (socket) => {
   socket.color = getRandomColor();
   io.emit("system", ${socket.nickname} вошёл в чат);
 
-  if (kisa.joined) {
+  if (!valera.joined) {
     setTimeout(() => {
-      sendBotMessage(kisa, @${socket.nickname}, привет!);
-    }, 500);
+      io.emit("system", ${valera.nick} вошёл в чат);
+      valera.joined = true;
+    }, 1000);
+  }
+
+  if (!kisa.joined) {
+    setTimeout(() => {
+      io.emit("system", ${kisa.nick} вошёл в чат);
+      kisa.joined = true;
+    }, 1500);
   }
 
   socket.on("chat-message", (msgText) => {
